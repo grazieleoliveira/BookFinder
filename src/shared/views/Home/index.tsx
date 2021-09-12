@@ -10,8 +10,10 @@ import * as S from './styles';
 export function Home() {
   const navigation = useNavigation();
   const {currentUser} = useSelector((state: any) => state.profile);
+  const {profile} = useSelector((state: any) => state.profile);
 
   function handleNavigate() {
+    console.tron.log(currentUser)
     navigation.navigate(PROFILE);
   }
   const {delta} = useSelector((state: ApplicationState) => state.font);

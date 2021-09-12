@@ -1,20 +1,42 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {Platform, View} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, {useState} from 'react';
+import {Platform} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {useFormik} from 'formik';
 import ButtonGlobal from '../../components/ButtonGlobal';
-import {HOME, TABS_SCREEN} from '../../constants/routeNames';
+import {HOME} from '../../constants/routeNames';
 import {ApplicationState} from '../../store';
-import themes from '../../themes';
+import validationSchema from './validations';
 
 import * as S from './styles';
+import MyInput from '../../components/MyInput';
+import {loginAction, setProfileAction} from '../../store/ducks/profile';
+
+interface DataFormProps {
+  username: string;
+  password: string;
+}
 
 export function Login() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const login = (username, password) => {
+    dispatch(loginAction(username, password));
     navigation.navigate(HOME);
   };
+
+  const {handleSubmit, dirty, handleChange, values, errors} = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: () => login(values.username, values.password),
+    validateOnChange: false,
+  });
 
   const {delta} = useSelector((state: ApplicationState) => state.font);
   return (
@@ -25,13 +47,24 @@ export function Login() {
           Log in to start searching for your books.
         </S.Subtitle>
         <S.InputContainer>
-          <S.UserInputTitle fontSize={16 + delta}>Username</S.UserInputTitle>
-          <S.UserInput />
-          <S.UserInputTitle fontSize={16 + delta}>Password</S.UserInputTitle>
-          <S.UserInput />
+          <MyInput
+            label="Username"
+            value={values.username}
+            onChangeText={handleChange('username')}
+            error={errors.username}
+          />
+          <MyInput
+            label="Password"
+            value={values.password}
+            onChangeText={handleChange('password')}
+            secureTextEntry={!showPassword}
+            actionIcon={() => setShowPassword(!showPassword)}
+            iconRight={showPassword ? 'eye-off' : 'eye'}
+            error={errors.password}
+          />
         </S.InputContainer>
         <S.ButtonContainer>
-          <ButtonGlobal action={login} title="Login" />
+          <ButtonGlobal disabled={!dirty} action={handleSubmit} title="Login" />
         </S.ButtonContainer>
       </S.Container>
     </S.Background>

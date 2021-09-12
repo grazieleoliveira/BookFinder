@@ -9,10 +9,10 @@ import styled from 'styled-components/native';
 import Icon from '../../../../shared/components/Icon';
 import {s, sfs, vs} from '../../../../shared/utils/responsibleText';
 
-export const Container = styled.View`
+export const Container = styled.ScrollView`
   background-color: ${({theme}) => theme.Colors.BACKGROUND};
   flex: 1;
-  padding: 0px ${s(8)}px;
+  padding: 0px ${s(20)}px;
 `;
 
 export const ContainerImage = styled.View`
@@ -66,5 +66,6 @@ export const ButtonContainer = styled.View`
   justify-content: flex-end;
   align-self: center;
   width: 150;
-  padding-bottom: 64px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 `;
