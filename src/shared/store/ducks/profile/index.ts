@@ -1,31 +1,32 @@
-export const Types = {
-  SET_PROFILE: 'SET_PROFILE',
-  LOGIN: 'LOGIN',
-};
+import {Reducer} from 'redux';
+import {ProfileState, ProfileTypes} from './types';
 
-const INITIAL_STATE = {
+const INITIAL_STATE: ProfileState = {
   isLoggedIn: true,
-  username: null,
-  password: null,
+  username: '',
+  password: '',
   currentUser: {
-    fullName: null,
-    age: null,
-    favoriteBook: null,
-    currentlyReading: null,
-    image: null,
+    fullName: '',
+    age: '',
+    favBook: '',
+    currentlyReading: '',
+    image: '',
   },
 };
 
-export default function reducer(state = INITIAL_STATE, {type, payload}) {
+const reducer: Reducer<ProfileState> = (
+  state = INITIAL_STATE,
+  {type, payload},
+) => {
   switch (type) {
-    case Types.LOGIN:
+    case ProfileTypes.LOGIN:
       return {
         ...state,
         isLoggedIn: true,
         username: payload.username,
         password: payload.password,
       };
-    case Types.SET_PROFILE:
+    case ProfileTypes.SET_PROFILE:
       return {
         ...state,
         currentUser: payload.currentUser,
@@ -34,14 +35,6 @@ export default function reducer(state = INITIAL_STATE, {type, payload}) {
     default:
       return state;
   }
-}
+};
 
-export const loginAction = (username, password) => ({
-  type: Types.LOGIN,
-  payload: {username, password},
-});
-
-export const setProfileAction = (currentUser) => ({
-  type: Types.SET_PROFILE,
-  payload: {currentUser},
-});
+export default reducer;

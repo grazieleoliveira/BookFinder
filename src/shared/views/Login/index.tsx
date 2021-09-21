@@ -10,7 +10,7 @@ import validationSchema from './validations';
 
 import * as S from './styles';
 import MyInput from '../../components/MyInput';
-import {loginAction, setProfileAction} from '../../store/ducks/profile';
+import {loginAction} from '../../store/ducks/profile/actions';
 
 interface DataFormProps {
   username: string;
@@ -23,8 +23,8 @@ export function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const login = (username, password) => {
-    dispatch(loginAction(username, password));
+  const login = (data: DataFormProps) => {
+    dispatch(loginAction(data.username, data.password));
     navigation.navigate(HOME);
   };
 
@@ -34,7 +34,7 @@ export function Login() {
       password: '',
     },
     validationSchema,
-    onSubmit: () => login(values.username, values.password),
+    onSubmit: login,
     validateOnChange: false,
   });
 

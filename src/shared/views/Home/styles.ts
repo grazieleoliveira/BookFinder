@@ -27,7 +27,11 @@ export const Title = styled.Text`
 export const NewTitle = styled(NewText)`
   font-family: Roboto-Medium;
   color: ${({theme}) => theme.Colors.FONT_HOME};
+  flex-shrink: 1;
+  flex-wrap: wrap;
 `;
+
+export const Touchable = styled.TouchableOpacity``;
 
 export const ProfileIcon = styled.TouchableOpacity`
   align-items: center;
@@ -74,4 +78,27 @@ export const Image = styled.Image`
 export const ImageContainer = styled.TouchableOpacity`
   width: 54px;
   height: 54px;
+`;
+
+export const List = styled.FlatList`
+  width: 100%;
+`;
+
+export const BookView = styled.View`
+  padding: 20px 10px 20px 10px
+  width: 100%;
+`;
+
+export const ImageBook = styled.Image`
+  width: ${s(100)}px;
+  height: ${s(150)}px;
+  margin-right: 10px;
+`;
+
+export const ImageInfoContainer = styled.View`
+  flex-direction: row;
+`;
+
+export const InfoContainer = styled.View`
+  flex-direction: column;
 `;
