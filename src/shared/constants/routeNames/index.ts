@@ -7,3 +7,5 @@ export const PROFILE = 'PROFILE_SCREEN';
 
 export const HOME_TAB = 'HOME_TAB';
 export const HOME = 'HOME_SCREEN';
+
+export const BOOK_INFO = 'BOOK_INFO';

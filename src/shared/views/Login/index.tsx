@@ -47,13 +47,13 @@ export function Login() {
           Log in to start searching for your books.
         </S.Subtitle>
         <S.InputContainer>
-          <MyInput
+          <S.MyInputStyled
             label="Username"
             value={values.username}
             onChangeText={handleChange('username')}
             error={errors.username}
           />
-          <MyInput
+          <S.MyInputStyled
             label="Password"
             value={values.password}
             onChangeText={handleChange('password')}

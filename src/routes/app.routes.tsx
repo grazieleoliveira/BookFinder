@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack/';
 
 import {Login} from '../shared/views/Login';
 import {
+  BOOK_INFO,
   HOME,
   LOGIN,
   PROFILE,
@@ -13,6 +14,7 @@ import Header from '../shared/components/Header';
 import Tabs from './tabNavigators';
 import Profile from '../modules/Profile/views/Home';
 import {Home} from '../shared/views/Home';
+import {BookInfo} from '../shared/views/BookInfo';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -44,6 +46,14 @@ export function AppRoutes() {
       <Screen
         name={HOME}
         component={Home}
+        options={{
+          header: () => <Header />,
+        }}
+      />
+
+      <Screen
+        name={BOOK_INFO}
+        component={BookInfo}
         options={{
           header: () => <Header />,
         }}

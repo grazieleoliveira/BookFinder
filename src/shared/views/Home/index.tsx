@@ -1,11 +1,17 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Text, View} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useDispatch, useSelector} from 'react-redux';
-import {PROFILE} from '../../constants/routeNames';
+import {BookInfo} from '../../../dtos';
+import ButtonGlobal from '../../components/ButtonGlobal';
+import {BOOK_INFO, PROFILE} from '../../constants/routeNames';
 import {ApplicationState} from '../../store';
 
-import {getBooksAction} from '../../store/ducks/books/actions';
+import {
+  getBookInfoAction,
+  getBooksAction,
+} from '../../store/ducks/books/actions';
 
 import themes from '../../themes';
 import * as S from './styles';
@@ -22,13 +28,17 @@ export function Home() {
   const dispatch = useDispatch();
 
   function handleNavigate() {
-    console.tron.log(currentUser);
     navigation.navigate(PROFILE);
   }
 
   const getBooks = () => {
-    console.tron.log('LIVRO', textSearch);
     dispatch(getBooksAction(textSearch));
+  };
+
+  const getBook = (item: BookInfo) => {
+    console.tron.log(item.id);
+    dispatch(getBookInfoAction(item.id));
+    navigation.navigate(BOOK_INFO, {item});
   };
 
   const renderBook = ({item}) => {
@@ -36,12 +46,28 @@ export function Home() {
       return null;
     }
     return (
-      <S.BookView>
+      <S.BookView onPress={() => getBook(item)}>
         <S.ImageInfoContainer>
-          {item.volumeInfo.imageLinks !== undefined && (
-            <S.ImageBook source={{uri: item.volumeInfo.imageLinks.thumbnail}} />
-          )}
-          <S.NewTitle fontSize={20}>{item.volumeInfo.title}</S.NewTitle>
+          <S.ImageBook source={{uri: item.volumeInfo.imageLinks.thumbnail}} />
+          <S.TitleDescriptionContainer>
+            <S.NewTitle numberOfLines={1} fontSize={20}>
+              {item.volumeInfo.title}
+            </S.NewTitle>
+            <S.PublishedDate numberOfLines={1} fontSize={12}>
+              {item.volumeInfo.publishedDate
+                ? item.volumeInfo.publishedDate.toString().slice(0, 4)
+                : 'Unknown date'}
+              , by{' '}
+              {item.volumeInfo.authors
+                ? item.volumeInfo.authors[0]
+                : 'Unknown author'}
+            </S.PublishedDate>
+            <S.Description numberOfLines={3} fontSize={13}>
+              {item.volumeInfo.description
+                ? item.volumeInfo.description
+                : 'No description'}
+            </S.Description>
+          </S.TitleDescriptionContainer>
         </S.ImageInfoContainer>
       </S.BookView>
     );
@@ -81,7 +107,7 @@ export function Home() {
           renderItem={renderBook}
           keyExtractor={(item: any) => item.id.toString()}
           showsVerticalScrollIndicator={false}
-          ListFooterComponent={<View style={{height: 100}} />}
+          ListFooterComponent={<View style={{height: 150}} />}
           // refreshing={loading}
           // onRefresh={() => getBooks()}
           // onEndReached={getBooks}

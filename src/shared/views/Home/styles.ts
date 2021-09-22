@@ -2,7 +2,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import styled from 'styled-components/native';
 import NewText from '../../components/Text';
 import themes from '../../themes';
-import {s} from '../../utils/responsibleText';
+import {s, vs} from '../../utils/responsibleText';
 
 export const Background = styled.View`
   flex: 1;
@@ -29,6 +29,7 @@ export const NewTitle = styled(NewText)`
   color: ${({theme}) => theme.Colors.FONT_HOME};
   flex-shrink: 1;
   flex-wrap: wrap;
+  margin-right: ${s(100)}px;
 `;
 
 export const Touchable = styled.TouchableOpacity``;
@@ -54,14 +55,14 @@ export const SearchArea = styled.View`
   flex-direction: row;
   border: 2px solid ${({theme}) => theme.Colors.BORDER_SEARCH};
   align-items: center;
+  margin-bottom: 10px;
 `;
 
-export const SearchInput = styled.TextInput.attrs(({theme}) => ({
-  placeholderTextColor: theme.Colors.BORDER_PROFILE,
-}))`
+export const SearchInput = styled.TextInput`
   font-size: ${({customFontSize}) => customFontSize}px;
   font-family: Roboto-Medium;
   width: 100%;
+  color: ${({theme}) => theme.Colors.FONT_HOME};
 `;
 
 export const MaterialIcon = styled(Icon)`
@@ -84,21 +85,45 @@ export const List = styled.FlatList`
   width: 100%;
 `;
 
-export const BookView = styled.View`
-  padding: 20px 10px 20px 10px
+export const BookView = styled.TouchableOpacity`
+  padding: 20px 10px 20px 10px;
   width: 100%;
 `;
 
 export const ImageBook = styled.Image`
   width: ${s(100)}px;
   height: ${s(150)}px;
-  margin-right: 10px;
 `;
 
 export const ImageInfoContainer = styled.View`
   flex-direction: row;
 `;
 
-export const InfoContainer = styled.View`
+export const TitleDescriptionContainer = styled.View`
+  padding-left: 20px;
   flex-direction: column;
+  justify-content: flex-start;
+`;
+
+export const Description = styled(NewText)`
+  margin-top: 6px;
+  margin-bottom: 5px;
+  font-family: Roboto-Regular;
+  color: ${({theme}) => theme.Colors.FONT_HOME};
+  flex-shrink: 1;
+  flex-wrap: wrap;
+  margin-right: ${s(100)}px;
+`;
+
+export const PublishedDate = styled(NewText)`
+  font-family: Roboto-Regular;
+  color: ${({theme}) => theme.Colors.FONT_HOME};
+  margin-right: ${s(100)}px;
+`;
+
+export const ButtonContainer = styled.TouchableOpacity`
+  flex: 1;
+  justify-content: flex-end;
+  align-items: flex-start;
+
 `;

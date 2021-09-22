@@ -5,6 +5,27 @@ import {BooksTypes, BooksState} from './types';
 const INITIAL_STATE: BooksState = {
   listBooks: [],
   loading: false,
+  book: {
+    kind: '',
+    id: '',
+    etag: '',
+    selfLink: '',
+    volumeInfo: {
+      title: '',
+      authors: [],
+      publisher: '',
+      publishedDate: '',
+      description: '',
+      pageCount: '',
+      categories: [],
+      averageRating: '',
+      ratingsCount: '',
+      language: '',
+      imageLinks: {
+        thumbnail: '',
+      },
+    },
+  },
 };
 
 const reducer: Reducer<BooksState> = (
@@ -16,11 +37,6 @@ const reducer: Reducer<BooksState> = (
       return {
         loading: true,
       };
-    case BooksTypes.GET_MORE_BOOKS:
-      return {
-        ...state,
-        loading: true,
-      };
     case BooksTypes.GET_BOOKS_SUCCESS:
       return {
         loading: false,
@@ -30,6 +46,20 @@ const reducer: Reducer<BooksState> = (
       return {
         loading: false,
         listBooks: [],
+      };
+    case BooksTypes.GET_BOOK_INFO:
+      return {
+        loading: true,
+      };
+    case BooksTypes.GET_BOOK_INFO_SUCCESS:
+      return {
+        loading: false,
+        book: payload.book,
+      };
+    case BooksTypes.GET_BOOK_INFO_ERROR:
+      return {
+        loading: false,
+        book: [],
       };
     default:
       return state;

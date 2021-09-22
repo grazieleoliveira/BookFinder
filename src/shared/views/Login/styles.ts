@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import ButtonGlobal from '../../components/ButtonGlobal';
+import MyInput from '../../components/MyInput';
 import NewText from '../../components/Text';
 import themes from '../../themes';
 
@@ -47,6 +48,7 @@ export const UserInput = styled.TextInput`
   border-bottom-width: 1;
   border-color: ${({theme}) => theme.Colors.BORDER};
   padding: 6px;
+  color: ${({theme}) => theme.Colors.FONT_HOME};
 `;
 
 export const UserInputTitle = styled(NewText)`
@@ -59,4 +61,8 @@ export const UserInputTitle = styled(NewText)`
 export const ButtonContainer = styled.View`
   align-self: center;
   width: 150;
+`;
+
+export const MyInputStyled = styled(MyInput)`
+  color: ${({theme}) => theme.Colors.FONT_HOME};
 `;
