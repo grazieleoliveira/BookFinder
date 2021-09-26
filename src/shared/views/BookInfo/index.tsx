@@ -1,6 +1,6 @@
 import {useRoute} from '@react-navigation/core';
 import React, {useState} from 'react';
-import {ActivityIndicator, Text, View} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 import {useSelector} from 'react-redux';
 import {ApplicationState} from '../../store';
 import {Info} from './components/Info';
