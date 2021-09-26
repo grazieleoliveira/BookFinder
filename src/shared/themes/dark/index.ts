@@ -54,5 +54,6 @@ export default {
     BACKGROUND_MODAL: '#000',
     TEXT_CLICKABLE: '#FFFF00',
     BUTTON_CANCEL: '#FFFF00',
+    SHOW_BUTTON: '#FFFF00',
   },
 };

@@ -41,6 +41,7 @@ type ColorsProps = {
   BACKGROUND_MODAL: string;
   TEXT_CLICKABLE: string;
   BUTTON_CANCEL: string;
+  SHOW_BUTTON: string;
 };
 
 type SizingProps = {

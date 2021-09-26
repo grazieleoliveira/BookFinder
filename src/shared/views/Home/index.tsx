@@ -1,10 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {ActivityIndicator, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {BookInfo} from '../../../dtos';
-import ButtonGlobal from '../../components/ButtonGlobal';
 import {BOOK_INFO, PROFILE} from '../../constants/routeNames';
 import {ApplicationState} from '../../store';
 
@@ -32,11 +30,12 @@ export function Home() {
   }
 
   const getBooks = () => {
-    dispatch(getBooksAction(textSearch));
+    if (!loading) {
+      dispatch(getBooksAction(textSearch));
+    }
   };
 
   const getBook = (item: BookInfo) => {
-    console.tron.log(item.id);
     dispatch(getBookInfoAction(item.id));
     navigation.navigate(BOOK_INFO, {item});
   };
@@ -46,7 +45,7 @@ export function Home() {
       return null;
     }
     return (
-      <S.BookView onPress={() => getBook(item)}>
+      <S.BookView onPress={() => getBook(item)} activeOpacity={0.7}>
         <S.ImageInfoContainer>
           <S.ImageBook source={{uri: item.volumeInfo.imageLinks.thumbnail}} />
           <S.TitleDescriptionContainer>
@@ -86,33 +85,39 @@ export function Home() {
           </S.ProfileIcon>
         </S.Header>
         <S.SearchArea>
-          <S.Touchable onPress={getBooks}>
-            <S.MaterialIcon
-              name="search"
-              color={themes.light.Colors.GREY}
-              size={themes.light.Sizes.ICON_SIZE}
-            />
-          </S.Touchable>
+          <S.MaterialIcon
+            name="search"
+            color={themes.light.Colors.GREY}
+            size={themes.light.Sizes.ICON_SIZE}
+          />
           <S.SearchInput
             placeholder="Find a book!"
             placeholderTextColor={themes.light.Colors.GREY}
             customFontSize={delta + 17}
             value={textSearch}
             onChangeText={setTextSearch}
+            onSubmitEditing={getBooks}
           />
         </S.SearchArea>
-        <S.List
-          data={listBooks}
-          extraData={listBooks}
-          renderItem={renderBook}
-          keyExtractor={(item: any) => item.id.toString()}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={<View style={{height: 150}} />}
-          // refreshing={loading}
-          // onRefresh={() => getBooks()}
-          // onEndReached={getBooks}
-          // onEndReachedThreshold={0.2}
-        />
+        {loading ? (
+          <S.IndicatorContainer>
+            <ActivityIndicator size="large" />
+          </S.IndicatorContainer>
+        ) : (
+          <S.List
+            data={listBooks}
+            extraData={listBooks}
+            renderItem={renderBook}
+            keyExtractor={(item: any) => item.id.toString()}
+            showsVerticalScrollIndicator={false}
+            ListFooterComponent={<View style={{height: 150}} />}
+            initialNumToRender={3}
+            // refreshing={loading}
+            // onRefresh={() => getBooks()}
+            // onEndReached={getBooks}
+            // onEndReachedThreshold={0.2}
+          />
+        )}
       </S.Container>
     </S.Background>
   );

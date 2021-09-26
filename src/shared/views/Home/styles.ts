@@ -125,5 +125,8 @@ export const ButtonContainer = styled.TouchableOpacity`
   flex: 1;
   justify-content: flex-end;
   align-items: flex-start;
+`;
 
+export const IndicatorContainer = styled.View`
+  padding-top: 50px;
 `;

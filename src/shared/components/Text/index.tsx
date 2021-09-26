@@ -1,11 +1,12 @@
 import React from 'react';
+import {TextProps} from 'react-native';
 import {useSelector} from 'react-redux';
 
 import {ApplicationState} from '../../store';
 
 import * as S from './styles';
 
-interface NewTextProps {
+interface NewTextProps extends TextProps {
   fontSize?: number;
 }
 
